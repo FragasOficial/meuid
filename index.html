@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Numerologia</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        input[type="date"] {
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .resultado {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Calculadora de Numerologia</h1>
+        <input type="date" id="dataNascimento" required>
+        <button onclick="calcularNumerologia()">Calcular</button>
+        <div class="resultado" id="resultado"></div>
+    </div>
+
+    <script>
+        function calcularNumerologia() {
+            const dataNascimento = document.getElementById('dataNascimento').value;
+
+            if (!dataNascimento) {
+                alert("Por favor, insira uma data de nascimento.");
+                return;
+            }
+
+            // Extrair os números da data de nascimento
+            const numeros = dataNascimento.replace(/-/g, '').split('').map(Number);
+
+            // Somar os números
+            let soma = numeros.reduce((acc, num) => acc + num, 0);
+
+            // Reduzir a soma a um único dígito ou a números mestres (11, 22, 33)
+            while (soma > 9 && soma !== 11 && soma !== 22 && soma !== 33) {
+                soma = soma.toString().split('').map(Number).reduce((acc, num) => acc + num, 0);
+            }
+
+            // Significados baseados no número final
+            let significado = '';
+            switch (soma) {
+                case 1:
+                    significado = "Número 1: Independência, liderança e iniciativa.";
+                    break;
+                case 2:
+                    significado = "Número 2: Diplomacia, cooperação e sensibilidade.";
+                    break;
+                case 3:
+                    significado = "Número 3: Expressão, criatividade e otimismo.";
+                    break;
+                case 4:
+                    significado = "Número 4: Estabilidade, organização e disciplina.";
+                    break;
+                case 5:
+                    significado = "Número 5: Liberdade, aventura e versatilidade.";
+                    break;
+                case 6:
+                    significado = "Número 6: Responsabilidade, amor e harmonia.";
+                    break;
+                case 7:
+                    significado = "Número 7: Espiritualidade, introspecção e sabedoria.";
+                    break;
+                case 8:
+                    significado = "Número 8: Poder, ambição e sucesso.";
+                    break;
+                case 9:
+                    significado = "Número 9: Humanitarismo, compaixão e generosidade.";
+                    break;
+                case 11:
+                    significado = "Número 11: Iluminação, inspiração e intuição.";
+                    break;
+                case 22:
+                    significado = "Número 22: Realização, construção e potencial.";
+                    break;
+                case 33:
+                    significado = "Número 33: Mestre curador, altruísmo e serviço.";
+                    break;
+                default:
+                    significado = "Número não encontrado.";
+            }
+
+            // Exibir o resultado
+            document.getElementById('resultado').innerText = significado;
+        }
+    </script>
+</body>
+
+</html>
