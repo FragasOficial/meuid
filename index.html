@@ -26,6 +26,10 @@
             width: 300px;
         }
 
+        #dataNascimento{
+            width: 60%;
+        }
+
         h1 {
             color: #333;
             font-size: 24px;
@@ -86,6 +90,9 @@
 
             const [anoNascimento, mesNascimento, diaNascimento] = dataNascimento.split('-').map(Number);
 
+            // Array para mapear os números dos meses para os nomes dos meses
+            const meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+
             // Soma dos números da data de nascimento
             const numeros = [anoNascimento, mesNascimento, diaNascimento].join('').split('').map(Number);
             let soma = numeros.reduce((acc, num) => acc + num, 0);
@@ -120,10 +127,10 @@
 
             // Adicionar o número do mês e o dia ao ano pessoal
             anoPessoal = anoPessoal + mesNascimento + diaNascimento;
-            anoPessoal = anoPessoal.toString().split('').map(Number).reduce((acc, num) => acc + num, 0); // Reduz para um dígito ou número mestre
+            anoPessoal = anoPessoal.toString().split('').map(Number).reduce((acc, num) => acc + num, -1); // Reduz para um dígito ou número mestre
 
             while (anoPessoal > 9 && anoPessoal !== 11 && anoPessoal !== 22 && anoPessoal !== 33) {
-                anoPessoal = anoPessoal.toString().split('').map(Number).reduce((acc, num) => acc + num, 0);
+                anoPessoal = anoPessoal.toString().split('').map(Number).reduce((acc, num) => acc + num, 1);
             }
 
             const significadosAnoPessoal = {
@@ -143,18 +150,42 @@
 
             const significadoAnoPessoal = significadosAnoPessoal[anoPessoal] || "Significado não encontrado para o ano pessoal.";
 
-            // Calcular o mês atual e o mês pessoal
+            // Calcular o mês pessoal
             const mesAtual = new Date().getMonth() + 1; // O mês é 0-indexado, então adiciona 1
-            const mesPessoal = (mesAtual + anoPessoal) % 9;
-            const mesPessoalFinal = mesPessoal === 0 ? 9 : mesPessoal; // Ajusta para o número 9 se o resultado for 0
-            const significadosMesPessoal = significadosAnoPessoal;
-            const significadoMesPessoal = significadosMesPessoal[mesPessoalFinal] || "Significado não encontrado para o mês pessoal.";
+            const mesPessoal = (mesAtual + anoPessoal - 1) % 9 + 1; // Ajusta a fórmula para garantir que o resultado esteja no intervalo correto
+            const nomeMesAtual = meses[mesAtual - 1]; // Substitui o número do mês pelo nome do mês
+            const nomeMesPessoal = meses[mesPessoal - 1]; // Deixa o número do mês pessoal como número, sem substituição
+
+            const significadosMesPessoal = {
+                1: "O mês pessoal nº 1 é um período de novos começos e iniciativas. É um bom momento para iniciar novos projetos e seguir seus objetivos com determinação.",
+                2: "O mês pessoal nº 2 é um tempo para cooperação e parceria. É ideal para resolver conflitos e melhorar suas relações pessoais e profissionais.",
+                3: "O mês pessoal nº 3 é um período de expressão criativa e socialização. É uma excelente época para se envolver em atividades artísticas e se conectar com os outros.",
+                4: "O mês pessoal nº 4 é um período de trabalho árduo e organização. É um bom momento para focar em tarefas práticas e estabelecer bases sólidas para o futuro.",
+                5: "O mês pessoal nº 5 é um tempo de mudança e aventura. É um período para buscar novas experiências e expandir seus horizontes.",
+                6: "O mês pessoal nº 6 é um período de responsabilidade e foco na família. É ideal para cuidar das suas responsabilidades domésticas e buscar harmonia em sua vida pessoal.",
+                7: "O mês pessoal nº 7 é um tempo para introspecção e análise. É um período para refletir sobre seus objetivos e buscar crescimento espiritual.",
+                8: "O mês pessoal nº 8 é um período de poder e sucesso. É um bom momento para focar em suas metas profissionais e buscar realizações materiais.",
+                9: "O mês pessoal nº 9 é um tempo de conclusão e encerramento. É ideal para finalizar projetos e preparar-se para novos começos.",
+            };
+
+            const significadoMesPessoal = significadosMesPessoal[mesPessoal] || "Significado não encontrado para o mês pessoal.";
 
             // Calcular o dia pessoal
-            const diaPessoal = (mesPessoalFinal + diaNascimento) % 9;
-            const diaPessoalFinal = diaPessoal === 0 ? 9 : diaPessoal; // Ajusta para o número 9 se o resultado for 0
-            const significadosDiaPessoal = significadosAnoPessoal;
-            const significadoDiaPessoal = significadosDiaPessoal[diaPessoalFinal] || "Significado não encontrado para o dia pessoal.";
+            const diaAtual = new Date().getDate(); // Corrigir para obter o dia atual corretamente
+            const diaPessoal = (diaAtual + mesPessoal - 1) % 9 + 1; // Ajusta a fórmula para garantir que o resultado esteja no intervalo correto
+            const significadosDiaPessoal = {
+                1: "O dia pessoal nº 1 é um período de novos começos e iniciativa. É um bom momento para começar novos projetos e tomar a liderança em suas atividades diárias.",
+                2: "O dia pessoal nº 2 é um tempo para cooperação e diplomacia. É ideal para resolver conflitos e colaborar com os outros.",
+                3: "O dia pessoal nº 3 é um período de expressão criativa e comunicação. É um bom momento para se envolver em atividades sociais e artísticas.",
+                4: "O dia pessoal nº 4 é um tempo para trabalho árduo e organização. É ideal para focar em tarefas práticas e estabelecer uma base sólida.",
+                5: "O dia pessoal nº 5 é um período de mudança e liberdade. É um bom momento para explorar novas oportunidades e buscar aventuras.",
+                6: "O dia pessoal nº 6 é um tempo para cuidar das responsabilidades familiares e domésticas. É ideal para buscar equilíbrio e harmonia em sua vida pessoal.",
+                7: "O dia pessoal nº 7 é um período de introspecção e análise. É um bom momento para refletir e buscar crescimento pessoal.",
+                8: "O dia pessoal nº 8 é um tempo para focar em objetivos materiais e alcançar sucesso. É ideal para trabalhar em suas metas de longo prazo.",
+                9: "O dia pessoal nº 9 é um período de conclusão e liberação. É um bom momento para encerrar ciclos e se preparar para novos começos.",
+            };
+
+            const significadoDiaPessoal = significadosDiaPessoal[diaPessoal] || "Significado não encontrado para o dia pessoal.";
 
             // Exibir o resultado
             document.getElementById('resultado').innerHTML = `
@@ -163,10 +194,10 @@
                 <p><strong>Ano Atual:</strong> ${anoAtual}</p>
                 <p><strong>Ano Pessoal:</strong> ${anoPessoal}</p>
                 <p><strong>Significado do Ano Pessoal:</strong> ${significadoAnoPessoal}</p>
-                <p><strong>Mês Atual:</strong> ${mesAtual}</p>
-                <p><strong>Mês Pessoal:</strong> ${mesPessoalFinal}</p>
+                <p><strong>Mês Atual:</strong> ${nomeMesAtual}</p>
+                <p><strong>Mês Pessoal:</strong> ${mesPessoal}</p>
                 <p><strong>Significado do Mês Pessoal:</strong> ${significadoMesPessoal}</p>
-                <p><strong>Dia Pessoal:</strong> ${diaPessoalFinal}</p>
+                <p><strong>Dia Pessoal:</strong> ${diaPessoal}</p>
                 <p><strong>Significado do Dia Pessoal:</strong> ${significadoDiaPessoal}</p>
             `;
         }
