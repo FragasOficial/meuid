@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Day insights</title>
+    <title>Day Insights</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -67,14 +67,9 @@
     <div class="container">
         <h1>Status ID</h1>
         <h2>Inserir data de nascimento corretamente</h2>
-        <h3>Sua data de nascimento deve ser realmente
-            a data que você nasceu.
-        </h3>
-        <h4>Algumas pessoas nascem numa data e registram outra na certidão de nascimento.
-        </h4>
-        <h5>
-            Só tem direcionamento válido se a data inserida for de fato a data de nascimento.
-        </h5>
+        <h3>Sua data de nascimento deve ser realmente a data que você nasceu.</h3>
+        <h4>Algumas pessoas nascem numa data e registram outra na certidão de nascimento.</h4>
+        <h5>Só tem direcionamento válido se a data inserida for de fato a data de nascimento.</h5>
         <input type="date" id="dataNascimento" required>
         <button onclick="calcularNumerologia()">Calcular</button>
         <div class="resultado" id="resultado"></div>
@@ -89,10 +84,10 @@
                 return;
             }
 
-            // Extrair os números da data de nascimento
-            const numeros = dataNascimento.replace(/-/g, '').split('').map(Number);
+            const [anoNascimento, mesNascimento, diaNascimento] = dataNascimento.split('-').map(Number);
 
-            // Somar os números
+            // Soma dos números da data de nascimento
+            const numeros = [anoNascimento, mesNascimento, diaNascimento].join('').split('').map(Number);
             let soma = numeros.reduce((acc, num) => acc + num, 0);
 
             // Reduzir a soma a um único dígito ou a números mestres (11, 22, 33)
@@ -101,50 +96,79 @@
             }
 
             // Significados baseados no número final
-            let significado = '';
-            switch (soma) {
-                case 1:
-                    significado = "Seu Número de destino é o nº. 1 e tem as seguintes características que regem toda a sua vida. E as três principais são: Independência, liderança e iniciativa.";
-                    break;
-                case 2:
-                    significado = "Seu Número de destino é o nº. 2 e tem as seguintes características que regem toda a sua vida. E as três principais são: Diplomacia, cooperação e sensibilidade.";
-                    break;
-                case 3:
-                    significado = "Seu Número de destino é o nº. 3 e tem as seguintes características que regem toda a sua vida. E as três principais são: Expressão, criatividade e otimismo.";
-                    break;
-                case 4:
-                    significado = "Seu Número de destino é o nº. 4 e tem as seguintes características que regem toda a sua vida. E as três principais são: Estabilidade, organização e disciplina.";
-                    break;
-                case 5:
-                    significado = "Seu Número de destino é o nº. 5 e tem as seguintes características que regem toda a sua vida. E as três principais são: Liberdade, aventura e versatilidade.";
-                    break;
-                case 6:
-                    significado = "Seu Número de destino é o nº. 6 e tem as seguintes características que regem toda a sua vida. E as três principais são: Responsabilidade, amor e harmonia.";
-                    break;
-                case 7:
-                    significado = "Seu Número de destino é o nº. 7 e tem as seguintes características que regem toda a sua vida. E as três principais são: Espiritualidade, introspecção e sabedoria.";
-                    break;
-                case 8:
-                    significado = "Seu Número de destino é o nº. 8 e tem as seguintes características que regem toda a sua vida. E as três principais são: Poder, ambição e sucesso.";
-                    break;
-                case 9:
-                    significado = "Seu Número de destino é o nº. 9 e tem as seguintes características que regem toda a sua vida. E as três principais são: Humanitarismo, compaixão e generosidade.";
-                    break;
-                case 11:
-                    significado = "Seu Número de destino é o nº. 11 e tem as seguintes características que regem toda a sua vida. E as três principais são: Iluminação, inspiração e intuição.";
-                    break;
-                case 22:
-                    significado = "Seu Número de destino é o nº. 22 e tem as seguintes características que regem toda a sua vida. E as três principais são: Realização, construção e potencial.";
-                    break;
-                case 33:
-                    significado = "Seu Número de destino é o nº. 33 e tem as seguintes características que regem toda a sua vida. E as três principais são: Mestre curador, altruísmo e serviço.";
-                    break;
-                default:
-                    significado = "Número não encontrado.";
+            const significados = {
+                1: "Seu Número de destino é o nº. 1 e tem as seguintes características que regem toda a sua vida. E as três principais são: Independência, liderança e iniciativa.",
+                2: "Seu Número de destino é o nº. 2 e tem as seguintes características que regem toda a sua vida. E as três principais são: Diplomacia, cooperação e sensibilidade.",
+                3: "Seu Número de destino é o nº. 3 e tem as seguintes características que regem toda a sua vida. E as três principais são: Expressão, criatividade e otimismo.",
+                4: "Seu Número de destino é o nº. 4 e tem as seguintes características que regem toda a sua vida. E as três principais são: Estabilidade, organização e disciplina.",
+                5: "Seu Número de destino é o nº. 5 e tem as seguintes características que regem toda a sua vida. E as três principais são: Liberdade, aventura e versatilidade.",
+                6: "Seu Número de destino é o nº. 6 e tem as seguintes características que regem toda a sua vida. E as três principais são: Responsabilidade, amor e harmonia.",
+                7: "Seu Número de destino é o nº. 7 e tem as seguintes características que regem toda a sua vida. E as três principais são: Espiritualidade, introspecção e sabedoria.",
+                8: "Seu Número de destino é o nº. 8 e tem as seguintes características que regem toda a sua vida. E as três principais são: Poder, ambição e sucesso.",
+                9: "Seu Número de destino é o nº. 9 e tem as seguintes características que regem toda a sua vida. E as três principais são: Humanitarismo, compaixão e generosidade.",
+                11: "Seu Número de destino é o nº. 11 e tem as seguintes características que regem toda a sua vida. E as três principais são: Iluminação, inspiração e intuição.",
+                22: "Seu Número de destino é o nº. 22 e tem as seguintes características que regem toda a sua vida. E as três principais são: Realização, construção e potencial.",
+                33: "Seu Número de destino é o nº. 33 e tem as seguintes características que regem toda a sua vida. E as três principais são: Mestre curador, altruísmo e serviço."
+            };
+
+            const significadoNumerologia = significados[soma] || "Número não encontrado.";
+
+            // Calcular o ano pessoal
+            const anoAtual = new Date().getFullYear();
+            const ultimoAniversario = new Date(anoAtual, mesNascimento - 1, diaNascimento); // Correção no índice do mês
+            let anoPessoal = anoAtual - ultimoAniversario.getFullYear(); // Calcula a diferença entre o ano atual e o ano do último aniversário
+
+            // Adicionar o número do mês e o dia ao ano pessoal
+            anoPessoal = anoPessoal + mesNascimento + diaNascimento;
+            anoPessoal = anoPessoal.toString().split('').map(Number).reduce((acc, num) => acc + num, 0); // Reduz para um dígito ou número mestre
+
+            while (anoPessoal > 9 && anoPessoal !== 11 && anoPessoal !== 22 && anoPessoal !== 33) {
+                anoPessoal = anoPessoal.toString().split('').map(Number).reduce((acc, num) => acc + num, 0);
             }
 
+            const significadosAnoPessoal = {
+                1: "O ano pessoal nº 1 é um período de novos começos e novos inícios. É um momento para definir metas e iniciar projetos que definirão o próximo ciclo de 9 anos.",
+                2: "O ano pessoal nº 2 é um período de cooperação e desenvolvimento de parcerias. É um tempo para trabalhar em equipe e encontrar equilíbrio nas relações.",
+                3: "O ano pessoal nº 3 é um período de expressão criativa e comunicação. É um momento para se concentrar em habilidades artísticas e sociais.",
+                4: "O ano pessoal nº 4 é um período de trabalho árduo e construção de bases sólidas. É um tempo para ser prático e organizado.",
+                5: "O ano pessoal nº 5 é um período de mudança e aventura. É um tempo para buscar novas experiências e estar aberto a novas oportunidades.",
+                6: "O ano pessoal nº 6 é um período de responsabilidade e foco na família e no lar. É um tempo para cuidar dos outros e buscar harmonia.",
+                7: "O ano pessoal nº 7 é um período de introspecção e crescimento espiritual. É um tempo para buscar conhecimento e refletir sobre a vida.",
+                8: "O ano pessoal nº 8 é um período de poder e sucesso material. É um tempo para focar em objetivos de longo prazo e alcançar metas ambiciosas.",
+                9: "O ano pessoal nº 9 é um período de conclusão e liberação. É um tempo para finalizar projetos e deixar o passado para trás.",
+                11: "O ano pessoal nº 11 é um período de inspiração e intuição elevada. É um tempo para seguir a sua visão espiritual e buscar um propósito mais profundo.",
+                22: "O ano pessoal nº 22 é um período de realização e grandes conquistas. É um tempo para usar suas habilidades e construir algo significativo.",
+                33: "O ano pessoal nº 33 é um período de serviço e cura. É um tempo para se dedicar ao bem-estar dos outros e contribuir para causas maiores."
+            };
+
+            const significadoAnoPessoal = significadosAnoPessoal[anoPessoal] || "Significado não encontrado para o ano pessoal.";
+
+            // Calcular o mês atual e o mês pessoal
+            const mesAtual = new Date().getMonth() + 1; // O mês é 0-indexado, então adiciona 1
+            const mesPessoal = (mesAtual + anoPessoal) % 9;
+            const mesPessoalFinal = mesPessoal === 0 ? 9 : mesPessoal; // Ajusta para o número 9 se o resultado for 0
+            const significadosMesPessoal = significadosAnoPessoal;
+            const significadoMesPessoal = significadosMesPessoal[mesPessoalFinal] || "Significado não encontrado para o mês pessoal.";
+
+            // Calcular o dia pessoal
+            const diaPessoal = (mesPessoalFinal + diaNascimento) % 9;
+            const diaPessoalFinal = diaPessoal === 0 ? 9 : diaPessoal; // Ajusta para o número 9 se o resultado for 0
+            const significadosDiaPessoal = significadosAnoPessoal;
+            const significadoDiaPessoal = significadosDiaPessoal[diaPessoalFinal] || "Significado não encontrado para o dia pessoal.";
+
             // Exibir o resultado
-            document.getElementById('resultado').innerText = significado;
+            document.getElementById('resultado').innerHTML = `
+                <p><strong>Número de Destino:</strong> ${soma}</p>
+                <p><strong>Significado do Número de Destino:</strong> ${significadoNumerologia}</p>
+                <p><strong>Ano Atual:</strong> ${anoAtual}</p>
+                <p><strong>Ano Pessoal:</strong> ${anoPessoal}</p>
+                <p><strong>Significado do Ano Pessoal:</strong> ${significadoAnoPessoal}</p>
+                <p><strong>Mês Atual:</strong> ${mesAtual}</p>
+                <p><strong>Mês Pessoal:</strong> ${mesPessoalFinal}</p>
+                <p><strong>Significado do Mês Pessoal:</strong> ${significadoMesPessoal}</p>
+                <p><strong>Dia Pessoal:</strong> ${diaPessoalFinal}</p>
+                <p><strong>Significado do Dia Pessoal:</strong> ${significadoDiaPessoal}</p>
+            `;
         }
     </script>
 </body>
