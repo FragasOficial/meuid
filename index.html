@@ -66,119 +66,110 @@
         <div class="resultado" id="resultado">
 
         </div>
-    <script>
-        function calcularNumerologia() {
-            const dia = document.getElementById('dia').value;
-            const mes = document.getElementById('mes').value;
-            const ano = document.getElementById('ano').value;
-
-            if (!dia || !mes || !ano) {
-                alert("Por favor, selecione o dia, mês e ano.");
-                return;
-            }
-
-            const dataNascimento = `${ano}-${mes.padStart(2, '0')}-${dia.padStart(2, '0')}`;
-            const [anoNascimento, mesNascimento, diaNascimento] = dataNascimento.split('-').map(Number);
-
-            const numeros = [anoNascimento, mesNascimento, diaNascimento].join('').split('').map(Number);
-            let soma = numeros.reduce((acc, num) => acc + num, 0);
-
-            while (soma > 9 && soma !== 11 && soma !== 22 && soma !== 33) {
-                soma = soma.toString().split('').map(Number).reduce((acc, num) => acc + num, 0);
-            }
-
-            const significados = {
-                1: "Seu Número de destino é o nº 1: Independência, liderança e iniciativa.",
-                2: "Seu Número de destino é o nº 2: Diplomacia, cooperação e sensibilidade.",
-                3: "Seu Número de destino é o nº 3: Expressão, criatividade e otimismo.",
-                4: "Seu Número de destino é o nº 4: Estabilidade, organização e disciplina.",
-                5: "Seu Número de destino é o nº 5: Liberdade, aventura e versatilidade.",
-                6: "Seu Número de destino é o nº 6: Responsabilidade, amor e harmonia.",
-                7: "Seu Número de destino é o nº 7: Espiritualidade, introspecção e sabedoria.",
-                8: "Seu Número de destino é o nº 8: Poder, ambição e sucesso.",
-                9: "Seu Número de destino é o nº 9: Humanitarismo, compaixão e generosidade.",
-                11: "Seu Número de destino é o nº 11: Iluminação, inspiração e intuição.",
-                22: "Seu Número de destino é o nº 22: Realização, construção e potencial.",
-                33: "Seu Número de destino é o nº 33: Mestre curador, altruísmo e serviço."
-            };
-
-            const significadoNumerologia = significados[soma] || "Número não encontrado.";
-
-            const anoAtual = new Date().getFullYear();
-            const ultimoAniversario = new Date(anoAtual, mesNascimento - 1, diaNascimento);
-            let anoPessoal = anoAtual + diaNascimento + mesNascimento;
-
-            anoPessoal = anoPessoal.toString().split('').map(Number).reduce((acc, num) => acc + num, 0);
-
-            while (anoPessoal > 9 && anoPessoal !== 11 && anoPessoal !== 22 && anoPessoal !== 33) {
+        <script>
+            function calcularNumerologia() {
+                const dia = document.getElementById('dia').value;
+                const mes = document.getElementById('mes').value;
+                const ano = document.getElementById('ano').value;
+        
+                if (!dia || !mes || !ano) {
+                    alert("Por favor, selecione o dia, mês e ano.");
+                    return;
+                }
+        
+                const dataNascimento = `${ano}-${mes.padStart(2, '0')}-${dia.padStart(2, '0')}`;
+                const [anoNascimento, mesNascimento, diaNascimento] = dataNascimento.split('-').map(Number);
+        
+                const numeros = [anoNascimento, mesNascimento, diaNascimento].join('').split('').map(Number);
+                let soma = numeros.reduce((acc, num) => acc + num, 0);
+        
+                while (soma > 9 && soma !== 11 && soma !== 22 && soma !== 33) {
+                    soma = soma.toString().split('').map(Number).reduce((acc, num) => acc + num, 0);
+                }
+        
+                const significados = {
+                    1: "Seu Número de destino é o nº 1: Independência, liderança e iniciativa.",
+                    2: "Seu Número de destino é o nº 2: Diplomacia, cooperação e sensibilidade.",
+                    3: "Seu Número de destino é o nº 3: Expressão, criatividade e otimismo.",
+                    4: "Seu Número de destino é o nº 4: Estabilidade, organização e disciplina.",
+                    5: "Seu Número de destino é o nº 5: Liberdade, aventura e versatilidade.",
+                    6: "Seu Número de destino é o nº 6: Responsabilidade, amor e harmonia.",
+                    7: "Seu Número de destino é o nº 7: Espiritualidade, introspecção e sabedoria.",
+                    8: "Seu Número de destino é o nº 8: Poder, ambição e sucesso.",
+                    9: "Seu Número de destino é o nº 9: Humanitarismo, compaixão e generosidade.",
+                    11: "Seu Número de destino é o nº 11: Iluminação, inspiração e intuição.",
+                    22: "Seu Número de destino é o nº 22: Realização, construção e potencial.",
+                    33: "Seu Número de destino é o nº 33: Mestre curador, altruísmo e serviço."
+                };
+        
+                const significadoNumerologia = significados[soma] || "Número não encontrado.";
+        
+                const anoAtual = new Date().getFullYear();
+                const ultimoAniversario = new Date(anoAtual, mesNascimento - 1, diaNascimento);
+                let anoPessoal = anoAtual + diaNascimento + mesNascimento;
+        
                 anoPessoal = anoPessoal.toString().split('').map(Number).reduce((acc, num) => acc + num, 0);
+        
+                while (anoPessoal > 9) { // Apenas reduzindo a um dígito.
+                    anoPessoal = anoPessoal.toString().split('').map(Number).reduce((acc, num) => acc + num, 0);
+                }
+        
+                const significadosAnoPessoal = {
+                    1: "Ano Pessoal 1: Novos começos e inícios.",
+                    2: "Ano Pessoal 2: Cooperação e parcerias.",
+                    3: "Ano Pessoal 3: Expressão criativa e socialização.",
+                    4: "Ano Pessoal 4: Trabalho árduo e organização.",
+                    5: "Ano Pessoal 5: Mudança e aventura.",
+                    6: "Ano Pessoal 6: Responsabilidade e foco na família.",
+                    7: "Ano Pessoal 7: Introspecção e crescimento espiritual.",
+                    8: "Ano Pessoal 8: Poder e realização material.",
+                    9: "Ano Pessoal 9: Conclusão e encerramento de ciclos."
+                };
+        
+                const significadoAnoPessoal = significadosAnoPessoal[anoPessoal] || "Ano pessoal não encontrado.";
+        
+                const mesAtual = new Date().getMonth() + 1;
+                const mesPessoal = (mesAtual + anoPessoal - 1) % 9 + 1;
+        
+                const significadosMesPessoal = {
+                    1: "Mês Pessoal 1: Novos começos e iniciativas.",
+                    2: "Mês Pessoal 2: Cooperação e parceria.",
+                    3: "Mês Pessoal 3: Expressão criativa e socialização.",
+                    4: "Mês Pessoal 4: Trabalho árduo e organização.",
+                    5: "Mês Pessoal 5: Mudança e aventura.",
+                    6: "Mês Pessoal 6: Responsabilidade e foco na família.",
+                    7: "Mês Pessoal 7: Introspecção e análise.",
+                    8: "Mês Pessoal 8: Poder e sucesso material.",
+                    9: "Mês Pessoal 9: Conclusão e liberação."
+                };
+        
+                const significadoMesPessoal = significadosMesPessoal[mesPessoal] || "Mês pessoal não encontrado.";
+        
+                const diaAtual = new Date().getDate();
+                const diaPessoal = (diaAtual + mesPessoal - 1) % 9 + 1;
+        
+                const significadosDiaPessoal = {
+                    1: "Dia Pessoal 1: Energia e novos começos.",
+                    2: "Dia Pessoal 2: Harmonia e colaboração.",
+                    3: "Dia Pessoal 3: Alegria e auto-expressão.",
+                    4: "Dia Pessoal 4: Foco e disciplina.",
+                    5: "Dia Pessoal 5: Liberdade e flexibilidade.",
+                    6: "Dia Pessoal 6: Amor e responsabilidade.",
+                    7: "Dia Pessoal 7: Reflexão e introspecção.",
+                    8: "Dia Pessoal 8: Ambição e poder.",
+                    9: "Dia Pessoal 9: Conclusão e transição."
+                };
+        
+                const significadoDiaPessoal = significadosDiaPessoal[diaPessoal] || "Dia pessoal não encontrado.";
+        
+                document.getElementById('resultado').innerHTML = `
+                    <p>${significadoNumerologia}</p>
+                    <p>${significadoAnoPessoal}</p>
+                    <p>${significadoMesPessoal}</p>
+                    <p>${significadoDiaPessoal}</p>
+                `;
             }
-
-            const significadosAnoPessoal = {
-                1: "Ano Pessoal 1: Novos começos e inícios.",
-                2: "Ano Pessoal 2: Cooperação e parcerias.",
-                3: "Ano Pessoal 3: Expressão criativa e socialização.",
-                4: "Ano Pessoal 4: Trabalho árduo e organização.",
-                5: "Ano Pessoal 5: Mudança e aventura.",
-                6: "Ano Pessoal 6: Responsabilidade e foco na família.",
-                7: "Ano Pessoal 7: Introspecção e crescimento espiritual.",
-                8: "Ano Pessoal 8: Poder e realização material.",
-                9: "Ano Pessoal 9: Conclusão e encerramento de ciclos.",
-                11: "Ano Pessoal 11: Inspiração e desenvolvimento espiritual.",
-                22: "Ano Pessoal 22: Realização e grandes conquistas.",
-                33: "Ano Pessoal 33: Serviço e compaixão."
-            };
-
-            const significadoAnoPessoal = significadosAnoPessoal[anoPessoal] || "Ano pessoal não encontrado.";
-
-            const mesAtual = new Date().getMonth() + 1;
-            const mesPessoal = (mesAtual + anoPessoal - 1) % 9 + 1;
-
-            const significadosMesPessoal = {
-                1: "Mês Pessoal 1: Novos começos e iniciativas.",
-                2: "Mês Pessoal 2: Cooperação e parceria.",
-                3: "Mês Pessoal 3: Expressão criativa e socialização.",
-                4: "Mês Pessoal 4: Trabalho árduo e organização.",
-                5: "Mês Pessoal 5: Mudança e aventura.",
-                6: "Mês Pessoal 6: Responsabilidade e foco na família.",
-                7: "Mês Pessoal 7: Introspecção e análise.",
-                8: "Mês Pessoal 8: Poder e sucesso material.",
-                9: "Mês Pessoal 9: Conclusão e liberação.",
-                11: "Mês Pessoal 11: Inspiração e intuição elevada.",
-                22: "Mês Pessoal 22: Realização e grandes conquistas.",
-                33: "Mês Pessoal 33: Serviço e cura."
-            };
-
-            const significadoMesPessoal = significadosMesPessoal[mesPessoal] || "Mês pessoal não encontrado.";
-
-            const diaAtual = new Date().getDate();
-            const diaPessoal = (diaAtual + mesPessoal - 1) % 9 + 1;
-
-            const significadosDiaPessoal = {
-                1: "Dia Pessoal 1: Energia e novos começos.",
-                2: "Dia Pessoal 2: Harmonia e colaboração.",
-                3: "Dia Pessoal 3: Alegria e auto-expressão.",
-                4: "Dia Pessoal 4: Foco e disciplina.",
-                5: "Dia Pessoal 5: Liberdade e flexibilidade.",
-                6: "Dia Pessoal 6: Amor e responsabilidade.",
-                7: "Dia Pessoal 7: Reflexão e introspecção.",
-                8: "Dia Pessoal 8: Ambição e poder.",
-                9: "Dia Pessoal 9: Conclusão e transição.",
-                11: "Dia Pessoal 11: Intuição e inspiração.",
-                22: "Dia Pessoal 22: Realização e grandes empreendimentos.",
-                33: "Dia Pessoal 33: Serviço e cura."
-            };
-
-            const significadoDiaPessoal = significadosDiaPessoal[diaPessoal] || "Dia pessoal não encontrado.";
-
-            document.getElementById('resultado').innerHTML = `
-                <p>${significadoNumerologia}</p>
-                <p>${significadoAnoPessoal}</p>
-                <p>${significadoMesPessoal}</p>
-                <p>${significadoDiaPessoal}</p>
-            `;
-        }
-    </script>
+        </script>
     <footer>
         <div class="pFooter">
             <p class="paragraphFooter">@TecInove Solutions</p>

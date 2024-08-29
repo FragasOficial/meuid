@@ -221,17 +221,28 @@ button:hover {
 }
 
 .resultado {
+    line-height: 1.2rem;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: center;
+    border: 0.01rem solid #ce1836;
+    padding: 1rem;
+    width: 100%;
+    max-width: 100%;
     margin-top: 1.25rem;
     font-size: 1rem;
-    /* color: #333; */
-    color: black;
+    color: rgb(37, 37, 37);
+    gap: 1rem;
 }
 
 footer{
+    max-height: 100%;
     width: 100%;
     max-width: 100%;
-    background-color: #373d3d;
-    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #009989;
+    margin-top: 3rem;
     height: 42vw;
     display: flex;
     flex-wrap: wrap;
