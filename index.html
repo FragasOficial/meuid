@@ -1,334 +1,27 @@
-<!-- <!DOCTYPE html>
-<html lang="pt-BR">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Day Insights</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 300px;
-        }
-
-        #dataNascimento{
-            width: 80%;
-        }
-
-        h1 {
-            color: #333;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        input[type="date"] {
-            padding: 10px;
-            width: 100%;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            margin-bottom: 20px;
-            font-size: 16px;
-        }
-
-        button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        .resultado {
-            margin-top: 20px;
-            font-size: 18px;
-            color: #333;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container">
-        <h1>Status ID</h1>
-        <h2>Inserir data de nascimento corretamente</h2>
-        <h3>Sua data de nascimento deve ser realmente a data que você nasceu.</h3>
-        <h4>Algumas pessoas nascem numa data e registram outra na certidão de nascimento.</h4>
-        <h5>Só tem direcionamento válido se a data inserida for de fato a data de nascimento.</h5>
-        <input type="date" id="dataNascimento" required>
-        <button onclick="calcularNumerologia()">Calcular</button>
-        <div class="resultado" id="resultado"></div>
-    </div>
-
-    <script>
-        function calcularNumerologia() {
-            const dataNascimento = document.getElementById('dataNascimento').value;
-
-            if (!dataNascimento) {
-                alert("Por favor, insira uma data de nascimento.");
-                return;
-            }
-
-            const [anoNascimento, mesNascimento, diaNascimento] = dataNascimento.split('-').map(Number);
-
-            // Array para mapear os números dos meses para os nomes dos meses
-            const meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
-
-            // Soma dos números da data de nascimento
-            const numeros = [anoNascimento, mesNascimento, diaNascimento].join('').split('').map(Number);
-            let soma = numeros.reduce((acc, num) => acc + num, 0);
-
-            // Reduzir a soma a um único dígito ou a números mestres (11, 22, 33)
-            while (soma > 9 && soma !== 11 && soma !== 22 && soma !== 33) {
-                soma = soma.toString().split('').map(Number).reduce((acc, num) => acc + num, 0);
-            }
-
-            // Significados baseados no número final
-            const significados = {
-                1: "Seu Número de destino é o nº. 1 e tem as seguintes características que regem toda a sua vida. E as três principais são: Independência, liderança e iniciativa.",
-                2: "Seu Número de destino é o nº. 2 e tem as seguintes características que regem toda a sua vida. E as três principais são: Diplomacia, cooperação e sensibilidade.",
-                3: "Seu Número de destino é o nº. 3 e tem as seguintes características que regem toda a sua vida. E as três principais são: Expressão, criatividade e otimismo.",
-                4: "Seu Número de destino é o nº. 4 e tem as seguintes características que regem toda a sua vida. E as três principais são: Estabilidade, organização e disciplina.",
-                5: "Seu Número de destino é o nº. 5 e tem as seguintes características que regem toda a sua vida. E as três principais são: Liberdade, aventura e versatilidade.",
-                6: "Seu Número de destino é o nº. 6 e tem as seguintes características que regem toda a sua vida. E as três principais são: Responsabilidade, amor e harmonia.",
-                7: "Seu Número de destino é o nº. 7 e tem as seguintes características que regem toda a sua vida. E as três principais são: Espiritualidade, introspecção e sabedoria.",
-                8: "Seu Número de destino é o nº. 8 e tem as seguintes características que regem toda a sua vida. E as três principais são: Poder, ambição e sucesso.",
-                9: "Seu Número de destino é o nº. 9 e tem as seguintes características que regem toda a sua vida. E as três principais são: Humanitarismo, compaixão e generosidade.",
-                11: "Seu Número de destino é o nº. 11 e tem as seguintes características que regem toda a sua vida. E as três principais são: Iluminação, inspiração e intuição.",
-                22: "Seu Número de destino é o nº. 22 e tem as seguintes características que regem toda a sua vida. E as três principais são: Realização, construção e potencial.",
-                33: "Seu Número de destino é o nº. 33 e tem as seguintes características que regem toda a sua vida. E as três principais são: Mestre curador, altruísmo e serviço."
-            };
-
-            const significadoNumerologia = significados[soma] || "Número não encontrado.";
-
-            // Calcular o ano pessoal
-            const anoAtual = new Date().getFullYear();
-            const ultimoAniversario = new Date(anoAtual, mesNascimento - 1, diaNascimento); // Correção no índice do mês
-            let anoPessoal = anoAtual - ultimoAniversario.getFullYear(); // Calcula a diferença entre o ano atual e o ano do último aniversário
-
-            // Adicionar o número do mês e o dia ao ano pessoal
-            anoPessoal = anoPessoal + mesNascimento + diaNascimento;
-            anoPessoal = anoPessoal.toString().split('').map(Number).reduce((acc, num) => acc + num, -1); // Reduz para um dígito ou número mestre
-
-            while (anoPessoal > 9 && anoPessoal !== 11 && anoPessoal !== 22 && anoPessoal !== 33) {
-                anoPessoal = anoPessoal.toString().split('').map(Number).reduce((acc, num) => acc + num, 1);
-            }
-
-            const significadosAnoPessoal = {
-                1: "O ano pessoal nº 1 é um período de novos começos e novos inícios. É um momento para definir metas e iniciar projetos que definirão o próximo ciclo de 9 anos.",
-                2: "O ano pessoal nº 2 é um período de cooperação e desenvolvimento de parcerias. É um tempo para trabalhar em equipe e encontrar equilíbrio nas relações.",
-                3: "O ano pessoal nº 3 é um período de expressão criativa e comunicação. É um momento para se concentrar em habilidades artísticas e sociais.",
-                4: "O ano pessoal nº 4 é um período de trabalho árduo e construção de bases sólidas. É um tempo para ser prático e organizado.",
-                5: "O ano pessoal nº 5 é um período de mudança e aventura. É um tempo para buscar novas experiências e estar aberto a novas oportunidades.",
-                6: "O ano pessoal nº 6 é um período de responsabilidade e foco na família e no lar. É um tempo para cuidar dos outros e buscar harmonia.",
-                7: "O ano pessoal nº 7 é um período de introspecção e crescimento espiritual. É um tempo para buscar conhecimento e refletir sobre a vida.",
-                8: "O ano pessoal nº 8 é um período de poder e sucesso material. É um tempo para focar em objetivos de longo prazo e alcançar metas ambiciosas.",
-                9: "O ano pessoal nº 9 é um período de conclusão e liberação. É um tempo para finalizar projetos e deixar o passado para trás.",
-                11: "O ano pessoal nº 11 é um período de inspiração e intuição elevada. É um tempo para seguir a sua visão espiritual e buscar um propósito mais profundo.",
-                22: "O ano pessoal nº 22 é um período de realização e grandes conquistas. É um tempo para usar suas habilidades e construir algo significativo.",
-                33: "O ano pessoal nº 33 é um período de serviço e cura. É um tempo para se dedicar ao bem-estar dos outros e contribuir para causas maiores."
-            };
-
-            const significadoAnoPessoal = significadosAnoPessoal[anoPessoal] || "Significado não encontrado para o ano pessoal.";
-
-            // Calcular o mês pessoal
-            const mesAtual = new Date().getMonth() + 1; // O mês é 0-indexado, então adiciona 1
-            const mesPessoal = (mesAtual + anoPessoal - 1) % 9 + 1; // Ajusta a fórmula para garantir que o resultado esteja no intervalo correto
-            const nomeMesAtual = meses[mesAtual - 1]; // Substitui o número do mês pelo nome do mês
-            const nomeMesPessoal = meses[mesPessoal - 1]; // Deixa o número do mês pessoal como número, sem substituição
-
-            const significadosMesPessoal = {
-                1: "O mês pessoal nº 1 é um período de novos começos e iniciativas. É um bom momento para iniciar novos projetos e seguir seus objetivos com determinação.",
-                2: "O mês pessoal nº 2 é um tempo para cooperação e parceria. É ideal para resolver conflitos e melhorar suas relações pessoais e profissionais.",
-                3: "O mês pessoal nº 3 é um período de expressão criativa e socialização. É uma excelente época para se envolver em atividades artísticas e se conectar com os outros.",
-                4: "O mês pessoal nº 4 é um período de trabalho árduo e organização. É um bom momento para focar em tarefas práticas e estabelecer bases sólidas para o futuro.",
-                5: "O mês pessoal nº 5 é um tempo de mudança e aventura. É um período para buscar novas experiências e expandir seus horizontes.",
-                6: "O mês pessoal nº 6 é um período de responsabilidade e foco na família. É ideal para cuidar das suas responsabilidades domésticas e buscar harmonia em sua vida pessoal.",
-                7: "O mês pessoal nº 7 é um tempo para introspecção e análise. É um período para refletir sobre seus objetivos e buscar crescimento espiritual.",
-                8: "O mês pessoal nº 8 é um período de poder e sucesso. É um bom momento para focar em suas metas profissionais e buscar realizações materiais.",
-                9: "O mês pessoal nº 9 é um tempo de conclusão e encerramento. É ideal para finalizar projetos e preparar-se para novos começos.",
-            };
-
-            const significadoMesPessoal = significadosMesPessoal[mesPessoal] || "Significado não encontrado para o mês pessoal.";
-
-            // Calcular o dia pessoal
-            const diaAtual = new Date().getDate(); // Corrigir para obter o dia atual corretamente
-            const diaPessoal = (diaAtual + mesPessoal - 1) % 9 + 1; // Ajusta a fórmula para garantir que o resultado esteja no intervalo correto
-            const significadosDiaPessoal = {
-                1: "O dia pessoal nº 1 é um período de novos começos e iniciativa. É um bom momento para começar novos projetos e tomar a liderança em suas atividades diárias.",
-                2: "O dia pessoal nº 2 é um tempo para cooperação e diplomacia. É ideal para resolver conflitos e colaborar com os outros.",
-                3: "O dia pessoal nº 3 é um período de expressão criativa e comunicação. É um bom momento para se envolver em atividades sociais e artísticas.",
-                4: "O dia pessoal nº 4 é um tempo para trabalho árduo e organização. É ideal para focar em tarefas práticas e estabelecer uma base sólida.",
-                5: "O dia pessoal nº 5 é um período de mudança e liberdade. É um bom momento para explorar novas oportunidades e buscar aventuras.",
-                6: "O dia pessoal nº 6 é um tempo para cuidar das responsabilidades familiares e domésticas. É ideal para buscar equilíbrio e harmonia em sua vida pessoal.",
-                7: "O dia pessoal nº 7 é um período de introspecção e análise. É um bom momento para refletir e buscar crescimento pessoal.",
-                8: "O dia pessoal nº 8 é um tempo para focar em objetivos materiais e alcançar sucesso. É ideal para trabalhar em suas metas de longo prazo.",
-                9: "O dia pessoal nº 9 é um período de conclusão e liberação. É um bom momento para encerrar ciclos e se preparar para novos começos.",
-            };
-
-            const significadoDiaPessoal = significadosDiaPessoal[diaPessoal] || "Significado não encontrado para o dia pessoal.";
-
-            // Exibir o resultado
-            document.getElementById('resultado').innerHTML = `
-                <p><strong>Número de Destino:</strong> ${soma}</p>
-                <p><strong>Significado do Número de Destino:</strong> ${significadoNumerologia}</p>
-                <p><strong>Ano Atual:</strong> ${anoAtual}</p>
-                <p><strong>Ano Pessoal:</strong> ${anoPessoal}</p>
-                <p><strong>Significado do Ano Pessoal:</strong> ${significadoAnoPessoal}</p>
-                <p><strong>Mês Atual:</strong> ${nomeMesAtual}</p>
-                <p><strong>Mês Pessoal:</strong> ${mesPessoal}</p>
-                <p><strong>Significado do Mês Pessoal:</strong> ${significadoMesPessoal}</p>
-                <p><strong>Dia Pessoal:</strong> ${diaPessoal}</p>
-                <p><strong>Significado do Dia Pessoal:</strong> ${significadoDiaPessoal}</p>
-            `;
-        }
-    </script>
-</body>
-
-</html> -->
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./reset.css">
+    <link rel="stylesheet" href="style.css">
     <title>Day Insights</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            line-height: 1.8rem;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            max-height: 100%;
-        }
-
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column; 
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 42%;
-        }
-
-        .dateConfig{
-            display: flex;
-        }
-
-        h1, h2, h3, h4{
-            margin-bottom: 1rem;
-        }
-
-        h5{
-            margin-bottom: 2rem;
-        }
-
-        h1{
-            font-size: x-large;
-            font-weight: bold;
-        }
-
-        h2{
-            font-size: medium;
-            text-transform: uppercase;
-        }
-
-        h3{
-            font-size: large;
-        }
-
-        h4{
-            font-size: medium;
-        }
-
-        h5{
-            font-size: small;
-        }
-
-        #dia, #mes, #ano{
-            
-            width: 50%;
-        }
-
-        label{
-            font-weight: bold;
-            margin-bottom: 0.3rem;
-        }
-
-        select {
-            padding: 10px;
-            width: 100%;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            margin-bottom: 20px;
-            font-size: 16px;
-        }
-
-        button {
-            margin-top: 1.5rem;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        .resultado {
-            margin-top: 20px;
-            font-size: 18px;
-            color: #333;
-        }
-    </style>
 </head>
 
 <body>
+    <header>
+        <h1>DS</h1>
+        <h2>Daily Status</h2>
+    </header>
     
     <div class="container">
-        <h1>Status ID</h1>
+       
         <h2>Inserir data de nascimento corretamente</h2>
         <h3>Sua data de nascimento deve ser realmente a data que você nasceu.</h3>
         <h4>Algumas pessoas nascem numa data e registram outra na certidão de nascimento.</h4>
         <h5>Só tem direcionamento válido se a data inserida for de fato a data de nascimento.</h5>
-        
+         
         <div class="dateConfig">
-           <div>
             <label for="dia">Dia:</label>
             <select id="dia">
                 <option value="">Selecione o dia</option>
@@ -340,7 +33,7 @@
             </select>
         </div>
         
-        <div>
+        <div class="mesConfig">
             <label for="mes">Mês:</label>
         <select id="mes">
             <option value="">Selecione o mês</option>
@@ -355,7 +48,7 @@
             </script>
         </select>
         </div>
-        <div>
+        <div class="anoConfig">
             <label for="ano">Ano:</label>
         <select id="ano">
             <option value="">Selecione o ano</option>
@@ -371,7 +64,9 @@
         
     </div>
         <button onclick="calcularNumerologia()">Calcular</button>
-        <div class="resultado" id="resultado"></div>
+        <div class="resultado" id="resultado">
+
+        </div>
     <script>
         function calcularNumerologia() {
             const dia = document.getElementById('dia').value;
