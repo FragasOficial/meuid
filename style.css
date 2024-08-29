@@ -129,7 +129,6 @@
             color: #ce1836;
             font-weight: bold;
             border-radius: 0.1rem;
-            /* border: 0.01rem solid #ce1836; */
         }
 
         .resultado {
@@ -139,7 +138,6 @@
             text-align: center;
             justify-content: center;
             flex-direction: column;
-            border: 0.01rem solid #ce1836;
             border-radius: 0.2rem;
             padding: 1rem;
             width: 50%;
@@ -274,7 +272,6 @@ label{
 }
 
 select {
-    /* padding: 10px; */
     width: 100%;
     border-radius: 5px;
     border: 1px solid #ccc;
@@ -303,7 +300,6 @@ button:hover {
     flex-wrap: wrap;
     text-align: center;
     justify-content: center;
-    border: 0.01rem solid #ce1836;
     padding: 1rem;
     width: 100%;
     max-width: 100%;
@@ -314,11 +310,12 @@ button:hover {
 }
 
 footer{
+    background-color: white;
     max-height: 100%;
     width: 100%;
     max-width: 100%;
+    border-top: 0.01rem solid black;
     padding: 1rem;
-    background-color: #009989;
     margin-top: 3rem;
     height: 42vw;
     display: flex;
@@ -326,7 +323,6 @@ footer{
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    color: black;
 }
 
 .pFooter{
@@ -338,7 +334,7 @@ footer{
 
 .paragraphFooter{
     font-size: 0.9rem;
-    color: white;
+    color: black;
 }
 
 }
